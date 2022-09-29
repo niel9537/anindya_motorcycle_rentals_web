@@ -21,8 +21,7 @@ class Sewa extends CI_Controller
 
   public function tambah_sewa()
   {
-    $kode    = $this->input->post('kode');
-
+    $kode         = $this->input->post('kode');
     $produk_id    = $this->input->post('produk_id');
     $dari         = $this->input->post('dari');
     $sampai       = $this->input->post('sampai');
@@ -31,9 +30,9 @@ class Sewa extends CI_Controller
     $harga        = $this->input->post('harga');
     $selisih      = $this->all_model->hitung_selisih($dari, $sampai);
     $tharga       = $harga * $selisih;
-    if ($kode != $produk_id) {
-      $this->back();
-    }
+
+
+
     $data = array(
       'id'         => $dari,
       'produk_id'  => $produk_id,
@@ -43,10 +42,11 @@ class Sewa extends CI_Controller
       'price'      => $tharga,
       'name'       => $nama,
     );
-    $in = $this->cart->insert($data);
-    if ($in) {
-      redirect('sewa');
-    }
+    $this->back($kode, $produk_id, $data);
+    // $in = $this->cart->insert($data);
+    // if ($in) {
+    //   redirect('sewa');
+    // }
   }
 
   public function hapus($id)
@@ -89,13 +89,22 @@ class Sewa extends CI_Controller
     $this->cart->destroy();
     // redirect('home');
   }
-  public function back()
+  public function back($kode, $produk_id, $data)
   {
-    $this->load->helper('url');
-    echo "<script>
-    alert('Kode Motor Salah');
-    window.location.href = '" . base_url() . "';// your redirect path here
-</script>";
+
+    if ($kode != $produk_id) {
+      $this->load->helper('url');
+      echo "<script>
+      alert('Kode Motor Salah');
+      window.location.href = '" . base_url() . "produk';// your redirect path here
+  </script>";
+    } else {
+      $in = $this->cart->insert($data);
+      if ($in) {
+        redirect('sewa');
+      }
+    }
+
     // redirect('home');
   }
 }
