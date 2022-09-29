@@ -21,6 +21,8 @@ class Sewa extends CI_Controller
 
   public function tambah_sewa()
   {
+    $kode    = $this->input->post('kode');
+
     $produk_id    = $this->input->post('produk_id');
     $dari         = $this->input->post('dari');
     $sampai       = $this->input->post('sampai');
@@ -29,6 +31,9 @@ class Sewa extends CI_Controller
     $harga        = $this->input->post('harga');
     $selisih      = $this->all_model->hitung_selisih($dari, $sampai);
     $tharga       = $harga * $selisih;
+    if ($kode != $produk_id) {
+      $this->back();
+    }
     $data = array(
       'id'         => $dari,
       'produk_id'  => $produk_id,
@@ -82,6 +87,15 @@ class Sewa extends CI_Controller
     window.location.href = '" . base_url() . "';// your redirect path here
 </script>";
     $this->cart->destroy();
+    // redirect('home');
+  }
+  public function back()
+  {
+    $this->load->helper('url');
+    echo "<script>
+    alert('Kode Motor Salah');
+    window.location.href = '" . base_url() . "';// your redirect path here
+</script>";
     // redirect('home');
   }
 }
