@@ -69,13 +69,16 @@ class Sewa extends CI_Controller
         'jumlah'     => $k['qty'],
         'harga'      => $k['subtotal']
       );
+      //$this->all_model->updatestok($k['produk_id'], );
       $this->all_model->insert($data_simpan, 'transaksi');
     }
+
     redirect('sewa/selesai');
   }
 
   public function selesai()
   {
+
     $this->load->view('selesai_view');
   }
 

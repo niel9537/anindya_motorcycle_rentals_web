@@ -16,6 +16,8 @@
               <th>Jumlah</th>
               <th>Dari</th>
               <th>Sampai</th>
+              <th>Biaya</th>
+              <th>Denda</th>
               <th>Total Bayar</th>
               <th>Status</th>
               <th>#</th>
@@ -32,7 +34,7 @@
                   $status = '<label class="label label-warning">Kembali</label>';
                   $aksi = '-';
                 } else {
-                  $aksi = '<a href="' . base_url('data_transaksi_sewa/kembali/' . $p->transaksi_id . '/' . $p->produk_id) . '" class="btn btn-info btn-xs">Kembali</a>';
+                  $aksi = '<a href="' . base_url('data_transaksi_sewa/kembali/' . $p->transaksi_id . '/' . $p->produk_id . '/' . $p->sampai . '/' . $this->all_model->format_harga($p->harga)) . '" class="btn btn-info btn-xs">Kembali</a>';
 
                   $status = '<label class="label label-success">Disetujui</label>';
                 }
@@ -45,6 +47,8 @@
                 echo '<td>' . $this->all_model->format_tanggal($p->dari) . '</td>';
                 echo '<td>' . $this->all_model->format_tanggal($p->sampai) . '</td>';
                 echo '<td>' . $this->all_model->format_harga($p->harga) . '</td>';
+                echo '<td>' . $this->all_model->format_harga($p->denda) . '</td>';
+                echo '<td>' . $this->all_model->format_harga($p->denda + $p->harga) . '</td>';
                 echo '<td>' . $status . '</td>';
                 echo '<td>' . $aksi . '</td>';
                 echo '</tr>';

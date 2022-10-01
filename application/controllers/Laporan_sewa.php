@@ -24,5 +24,3 @@ class Laporan_sewa extends CI_Controller {
   }
 
 }
-
- ?>

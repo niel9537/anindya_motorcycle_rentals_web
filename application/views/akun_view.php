@@ -49,10 +49,12 @@
         <tr>
           <th>No</th>
           <th>Nama Produk</th>
-          <th>Kategori</th>
+          <!-- <th>Kategori</th> -->
           <th>Jumlah</th>
           <th>Dari</th>
           <th>Sampai</th>
+          <th>Biaya</th>
+          <th>Denda</th>
           <th>Total Bayar</th>
           <th>Status</th>
         </tr>
@@ -71,11 +73,13 @@
             echo '<tr>';
             echo '<td>' . $no . '</td>';
             echo '<td>' . $p->nama_produk . '</td>';
-            echo '<td>' . $p->nama_kategori . '</td>';
+            // echo '<td>' . $p->nama_kategori . '</td>';
             echo '<td>' . $p->jumlah . '</td>';
             echo '<td>' . $this->all_model->format_tanggal($p->dari) . '</td>';
             echo '<td>' . $this->all_model->format_tanggal($p->sampai) . '</td>';
             echo '<td>' . $this->all_model->format_harga($p->harga) . '</td>';
+            echo '<td>' . $this->all_model->format_harga($p->denda) . '</td>';
+            echo '<td>' . $this->all_model->format_harga($p->harga + $p->denda) . '</td>';
             echo '<td>' . $status . '</td>';
             echo '</tr>';
           }

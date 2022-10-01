@@ -25,11 +25,11 @@
               <button type="submit" class="btn btn-info form-control"> Cari</button>
             </div>
           </div>
-          <?php if (isset($_GET['tgl1'])): ?>
+          <?php if (isset($_GET['tgl1'])) : ?>
             <div class="col-sm-2">
               <div class="form-group">
                 <label>Cetak</label>
-                <a href="<?php echo base_url('laporan_sewa/cetak_jasa?tgl1='.$_GET['tgl1'].'&tgl2='.$_GET['tgl2'])?>" target="_blank" class="btn btn-info form-control"> Cetak</a>
+                <a href="<?php echo base_url('laporan_sewa/cetak_jasa?tgl1=' . $_GET['tgl1'] . '&tgl2=' . $_GET['tgl2']) ?>" target="_blank" class="btn btn-info form-control"> Cetak</a>
               </div>
             </div>
           <?php endif; ?>
@@ -40,7 +40,7 @@
               <th>No</th>
               <th>Nama User</th>
               <th>Nama Produk</th>
-              <th>Kategori</th>
+              <!-- <th>Kategori</th> -->
               <th>Jumlah</th>
               <th>Dari</th>
               <th>Sampai</th>
@@ -49,29 +49,31 @@
             </tr>
           </thead>
           <tbody>
-            <?php $total = 0;if (!empty($transaksi)):
-                foreach ($transaksi as $key => $p) {
-                  $total = $total +$p->harga;
-                  $no = $key+1;
-                  if ($p->status == '0') {
-                    $status = '<label class="label label-default">Menunggu</label>';
-                  }elseif ($p->status == '2') {
-                    $status = '<label class="label label-warning">Kembali</label>';
-                  }else {
-                    $status = '<label class="label label-success">Disetujui</label>';
-                  }
-                  echo '<tr>';
-                    echo '<td>'.$no.'</td>';
-                    echo '<td>'.$p->nama_lengkap.'</td>';
-                    echo '<td>'.$p->nama_produk.'</td>';
-                    echo '<td>'.$p->nama_kategori.'</td>';
-                    echo '<td>'.$p->jumlah.'</td>';
-                    echo '<td>'.$p->dari.'</td>';
-                    echo '<td>'.$p->sampai.'</td>';
-                    echo '<td>'.$this->all_model->format_harga($p->harga).'</td>';
-                    echo '<td>'.$status.'</td>';
-                  echo '</tr>';
-                } endif; ?>
+            <?php $total = 0;
+            if (!empty($transaksi)) :
+              foreach ($transaksi as $key => $p) {
+                $total = $total + $p->harga + $p->denda;
+                $no = $key + 1;
+                if ($p->status == '0') {
+                  $status = '<label class="label label-default">Menunggu</label>';
+                } elseif ($p->status == '2') {
+                  $status = '<label class="label label-warning">Kembali</label>';
+                } else {
+                  $status = '<label class="label label-success">Disetujui</label>';
+                }
+                echo '<tr>';
+                echo '<td>' . $no . '</td>';
+                echo '<td>' . $p->nama_lengkap . '</td>';
+                echo '<td>' . $p->nama_produk . '</td>';
+                // echo '<td>' . $p->nama_kategori . '</td>';
+                echo '<td>' . $p->jumlah . '</td>';
+                echo '<td>' . $p->dari . '</td>';
+                echo '<td>' . $p->sampai . '</td>';
+                echo '<td>' . $this->all_model->format_harga($p->harga + $p->denda) . '</td>';
+                echo '<td>' . $status . '</td>';
+                echo '</tr>';
+              }
+            endif; ?>
           </tbody>
           <tfoot>
             <tr>

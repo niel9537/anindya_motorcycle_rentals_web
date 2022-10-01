@@ -37,6 +37,7 @@
         <p>No Telp : <?php echo $this->session->userdata('notelp') ?></p><br>
         <p>Email : <?php echo $this->session->userdata('email') ?></p><br>
         <p>Alamat : <?php echo $this->session->userdata('alamat') ?></p><br>
+        <p>No.Rek Admin : 0892528681 (Ben)</p><br>
         <table class="table table-striped">
           <thead>
             <tr>
